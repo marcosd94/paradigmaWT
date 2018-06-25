@@ -1,0 +1,14 @@
+MATERIA: PARADIGMAS DE LA PROGRAMACION
+PROFESOR: GUSTAVO SOSA
+ALUMNA: WALTER TORALES
+CI: 4568544
+
+PROYECTO
+GOLAB
+Para la ejecucion correcta del programa previamente se debe instalar la Base de Datos Orientada a Objetos ZODB
+El programa fue desarrollado bajo la version 3 de PYTHON.
+Para iniciar el programa se debe ejecutar el archivo app.py con el siguiente comando en linux:
+$ python3 app.py
+OBS: SOLO ESTA IMPLEMENTADA LA CARGA DE FUNCIONARIOS
+
+
