@@ -87,3 +87,62 @@ class Util:
                     temporal += char
             resultado = ''.join(temporal)
         return resultado
+
+    def validar_fecha(self, fecha):
+        try:
+            strptime(fecha, '%d/%m/%Y')
+            return fecha
+        except Exception as e:
+            raise Exception('El formato no corresponde')
+
+    def validar_entero(self, valor, min_value=None, max_value=None, default=None):
+        ''' (string, int, int) -> int
+        Pide que se ingrese número. Solo se retorna resultado cuando se ingresa
+        un valor válido.
+        @Parámetros
+            msg : mensaje que se muestra al usuario.
+            min_value: el valor mínimo que usuario debe ingresar
+            max_value: el valor máximo que usuario debe ingresar
+        Ej:
+            leer_numero('Ingrese un número entre 1 y 9', 1, 9)
+        '''
+        while (True):
+            cualquier_valor = valor
+            try:
+                # tratamos de convertir en número entero
+                number = int(cualquier_valor)
+
+                if min_value and (number < min_value):
+                    error_msg = "Número fuera de rango [min_value = {}]".format(str(min_value))
+                    raise ValueError(error_msg)
+
+                if max_value and (number > max_value):
+                    error_msg = "Número fuera de rango [max_value = {}]".format(str(max_value))
+                    raise ValueError(error_msg)
+
+                # se retorna valor válido ingresado por el usuario
+                return number
+            except ValueError as ve:
+                # print (ve)
+                raise Exception("Se esperaba número!")
+            except TypeError as te:
+                raise Exception("Se esperaba número!")
+            except Exception as e:
+                raise Exception(e)
+
+    def validar_cadena(self, valor, obligatorio, default=None):
+        while (True):
+            if default:
+                msg = msg + default + chr(8) * len(default)
+
+            data = valor
+            data = data or default
+            try:
+                if obligatorio and data == None:
+                    raise Exception("Debe ingresar valor!")
+                elif (len(data.strip()) == 0):
+                    raise Exception("Debe ingresar valor!")
+                # se retorna valor válido ingresado por el usuario
+                return data
+            except Exception as e:
+                raise Exception('Debe ingresar valor!')

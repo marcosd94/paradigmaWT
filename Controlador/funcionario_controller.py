@@ -1,5 +1,5 @@
 from Modelo.funcionario_model import Funcionario
-from Vista.funcionario_view import View
+#from Vista.funcionario_view import View
 from Util.util import Util
 
 
@@ -8,12 +8,16 @@ class ControladorFuncionario():
 
     def __init__(self):
         self.fun = Funcionario('', '', 0, '', '', '', '', '')
-        self.view = View()
+        #self.view = View()
         self.util = Util()
 
-    def cargar_func(self):
+
+#    def mostrar_formulario_funcionario(self):
+#        self.view.cargar_funcionario()
+
+    def cargar_func(self, funcionario):
         try:
-            self.fun = self.view.solicitar_datos()
+            self.fun = funcionario
             codigo = self.util.genera_codigo(self.fun.nombre, self.fun.apellido, self.fun.cedula)
             existe = self.fun.buscar_persona(codigo)
             if existe != None and len(existe) != 0:
@@ -22,17 +26,17 @@ class ControladorFuncionario():
             else:
                 self.fun.carga_datos(codigo)
                 msg = self.fun.cargar_persona(self.fun, codigo)
-                self.view.mostrar_msg(msg)
+                #self.view.mostrar_msg(msg)
         except KeyboardInterrupt as e:
-            msg = 'Carga interrumpida.'
+            raise Exception('Carga interrumpida.')
         except Exception as ex:
-            msg = 'hola'
+            raise Exception(ex)
 
     def listar_funcionarios(self):
-        ob = self.fun.listar_persona()
-        self.view.listar_funcionarios(ob)
+        return self.fun.listar_persona()
+        #self.view.listar_funcionarios(ob)
 
     def buscar_funcionarios(self):
         codigo = self.view.solicitar_codigo()
-        funcionario = self.fun.buscar_persona(codigo)
-        self.view.mostrar_resultado(funcionario)
+        return self.fun.buscar_persona(codigo)
+        #self.view.mostrar_resultado(funcionario)
