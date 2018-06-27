@@ -67,12 +67,21 @@ class VistaLab:
                 #view_articulos.cargar_articulos(usu)
 
         if ( tur != 0):
+        #if ( False ):
 
             ventana = tkinter.Tk()
-            ventana.title("GOLAB Laboratorio de Analisis Clinicos")
+            ventana.title("GOLAB - Laboratorio de Analisis Clinicos")
             ventana.geometry("700x700")
-            L1 = tkinter.Label(ventana, font='Arial', text="POR FAVOR ELIJA LA TAREA A REALIZAR")
-            L1.place(bordermode='outside', height=50, x=100, y=10)
+            L1 = tkinter.Label(ventana, font='Arial', text="GOLAB - Laboratorio de Analisis Clinicos")
+            L1.place(bordermode='outside', height=30, x=50, y=10)
+
+            #print('-> Jornada:', self.jornada.numero, '\t ->', ver, '\t-> Ultima conexion: ', self.jornada.ultima_fecha)
+            dato = '* Jornada: '+ str(self.jornada.numero) + '\t*' + ver + '\t* Ultima conexion: '+ self.jornada.ultima_fecha
+            datos = tkinter.Label(ventana, font='Arial', text=dato)
+            datos.place(bordermode='outside', height=20, x=50, y=40)
+
+            L2 = tkinter.Label(ventana, font='Arial', text="POR FAVOR ELIJA LA TAREA A REALIZAR")
+            L2.place(bordermode='outside', height=30, x=50, y=80)
 
             itemsforlistbox = ['Agregar',
                                'Listar',
@@ -94,9 +103,20 @@ class VistaLab:
 
             ventana.mainloop()
         else:
-            print('\t\tGOLAB se encuentra cerrado\n')
 
+            def cerrar_exp():
+                ordenes.destroy()
+                #funcionarios.eval('::ttk::CancelRepeat')
 
+            ordenes = tkinter.Tk()
+            ordenes.title("GOLAB - Laboratorio de Analisis Clinicos")
+            ordenes.geometry("500x300")
+            alerta = tkinter.Message(ordenes, relief='raised', text="GOLAB se encuentra cerrado", width=200)
+            alerta.place(bordermode='outside', height=250, width=400, y=30, x=50)
+            ok = tkinter.Button(alerta, text="Ok", command=cerrar_exp)
+            ok.pack(side="bottom")
+
+            ordenes.mainloop()
 
 
 
