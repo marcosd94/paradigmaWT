@@ -32,9 +32,19 @@ class OrdenPaciente:
 
     def listar_ordeness(self, lista):
         if lista!=None and len(lista)!=0:
-            print('\n-> Ordenes de Analisis : \n')
+            print('\n-> Ordenes de Analisis Pendientes : \n')
             for ord in lista:
-                print ('* Nro. Orden: ', ord.id_orden, ', Cod. Paciente: ', ord.codigo_paciente, ', Estado: ',ord.estado, ', Fecha: ',ord.fecha,', Tipo: ',ord.tipo,)
+                print ('* Cod. Orden: ', ord.cod_orden, ', Cod. Paciente: ', ord.codigo_paciente, ', Estado: ',ord.estado, ', Fecha: ',ord.fecha,', Tipo: ',ord.tipo,)
+            self.util.pause()
+        else:
+            print('\n-> No existen registros')
+            self.util.pause()
+
+    def listar_ordeness_finalizadas(self, lista):
+        if lista!=None and len(lista)!=0:
+            print('\n-> Ordenes de Analisis Finalizadas : \n')
+            for ord in lista:
+                print ('* Cod. Orden: ', ord.cod_orden, ', Cod. Paciente: ', ord.codigo_paciente, ', Estado: ',ord.estado, ', Fecha: ',ord.fecha,', Tipo: ',ord.tipo,)
             self.util.pause()
         else:
             print('\n-> No existen registros')

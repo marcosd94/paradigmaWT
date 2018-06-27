@@ -55,13 +55,32 @@ class OrdenModel(Orden, Persistent):
             for key in dbroot.keys():
                 obj = dbroot[key]
                 if isinstance(obj, OrdenModel):
-                    orden = OrdenModel(obj.fecha, obj.id_orden,obj.codigo_paciente,obj.tipo,obj.estado)
-                    result.append(orden)
+                    if(obj.estado == 'Pendiente'):
+                        orden = OrdenModel(obj.fecha, obj.id_orden,obj.codigo_paciente,obj.tipo,obj.cod_orden,obj.estado)
+                        result.append(orden)
             db.close()
             return result
         except Exception as e:
             db.close()
             raise('Error al consultar la base', e)
+
+    def listar_ordenes_finalizadas(self):
+        try:
+            db = MiZODB('./Data.fs')
+            dbroot = db.raiz
+            result = []
+            for key in dbroot.keys():
+                obj = dbroot[key]
+                if isinstance(obj, OrdenModel):
+                    if(obj.estado == 'Finalizado'):
+                        orden = OrdenModel(obj.fecha, obj.id_orden,obj.codigo_paciente,obj.tipo,obj.cod_orden,obj.estado)
+                        result.append(orden)
+            db.close()
+            return result
+        except Exception as e:
+            db.close()
+            raise('Error al consultar la base', e)
+
 
     def buscar_orden(self,codigo):
         try:
@@ -79,4 +98,20 @@ class OrdenModel(Orden, Persistent):
             db.close()
             raise ('Error', e)
 
+
+    def buscar_orden_modif(self,codigo):
+        try:
+            db = MiZODB('./Data.fs')
+            dbroot = db.raiz
+            orden = None
+            for key in dbroot.keys():
+                obj = dbroot[key]
+                if isinstance(obj, OrdenModel):
+                    if key == codigo:
+                        orden = OrdenModel(obj.fecha, obj.id_orden, obj.codigo_paciente, obj.tipo,obj.cod_orden, obj.estado)
+            db.close()
+            return orden
+        except Exception as e:
+            db.close()
+            raise ('Error', e)
 
