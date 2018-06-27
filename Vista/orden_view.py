@@ -126,6 +126,10 @@ class OrdenPaciente:
             for ord in lista:
                 print ('* Cod. Orden: ', ord.cod_orden, ', Cod. Paciente: ', ord.codigo_paciente, ', Estado: ',ord.estado, ', Fecha: ',ord.fecha,', Tipo: ',ord.tipo,)
             self.util.pause()
+        else:
+            print('\n-> No existen registros')
+            self.util.pause()
+
     def listar_ordenes(self):
         def cerrar_exp():
             ordenes.destroy()
