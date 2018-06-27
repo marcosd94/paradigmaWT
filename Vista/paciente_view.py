@@ -219,7 +219,7 @@ class View:
 
                 codigo = self.util.validar_entero(str(cedula.get()), 1)
                 pacientes.destroy()
-                orden.imprimir(codigo)
+                orden.gestionar_orden(codigo)
                 # return (codigo)
 
             except Exception as e:
@@ -268,6 +268,94 @@ class View:
 
     def mostrar_msg_pac(self,msg):
         print('\n',msg+'\n\n')
+
+
+    def registrar_paciente_orden(self,orden, cedula):
+        pacientes = tkinter.Tk()
+        pacientes.title("CARGAR PACIENTE")
+        pacientes.geometry("800x500")
+
+        def volver():
+            pacientes.destroy()
+
+        def cargar():
+            def cerrar_exp():
+                pacientes.destroy()
+                #pacientes.eval('::ttk::CancelRepeat')
+                self.cargar_paciente()
+            def ok_exp():
+                pacientes.destroy()
+                #pacientes.eval('::ttk::CancelRepeat')
+                orden.gestionar_orden(cedula)
+
+            try:
+
+                nombre_pac = self.util.validar_cadena(str(nombre.get()), True)
+                apellido_pac = self.util.validar_cadena(str(apellido.get()), True)
+                cedula_pac = self.util.validar_entero(cedula, 1)
+                telefono_pac = self.util.validar_cadena(str(telefono.get()), False)
+                email_pac = self.util.validar_cadena(str(email.get()), False)
+                fecha_pac = self.util.validar_fecha(str(fecha_nacimiento.get()))
+
+                #contenedor = Medico(nombre, apellido, cedula, telefono, email, fecha, cargo, '')
+
+                contenedor = Paciente(nombre_pac, apellido_pac, cedula_pac, telefono_pac, email_pac, fecha_pac, '')
+
+                self.controller.cargar_paciente(contenedor)
+
+            except Exception as e:
+                alerta = tkinter.Message(pacientes, relief='raised',
+                                         text='NO SE PUDO CARGAR EL PACIENTE\nError: ' + str(e), width=200)
+                alerta.place(bordermode='outside', height=150, width=200, y=30, x=150)
+                ok = tkinter.Button(alerta, text="Ok", command=cerrar_exp)
+                ok.pack(side="bottom")
+            else:
+                alerta = tkinter.Message(pacientes, relief='raised', text='PACIENTE CARGADO CON EXITO', width=200)
+                alerta.place(bordermode='outside', height=150, width=200, y=30, x=150)
+                ok = tkinter.Button(alerta, text="Ok", command=ok_exp)
+                ok.pack(side="bottom")
+
+        titulo = tkinter.Label(pacientes, font='Arial', text="DATOS DEL NUEVO PACIENTE")
+        titulo.place(bordermode='outside', height=20, width=600, x=100)
+        # Etiquetas
+        lbl_nombre = tkinter.Label(pacientes, font='Arial', text="Nombres", justify='left')
+        lbl_nombre.place(bordermode='outside', height=20, width=300, x=50, y=30)
+        lbl_apellido = tkinter.Label(pacientes, font='Arial', text="Apellidos")
+        lbl_apellido.place(bordermode='outside', height=20, width=300, x=50, y=55)
+        lbl_documento_identidad = tkinter.Label(pacientes, font='Arial', text="Documento de identidad")
+        lbl_documento_identidad.place(bordermode='outside', height=20, width=300, x=50, y=80)
+        lbl_telefono = tkinter.Label(pacientes, font='Arial', text="Télefono")
+        lbl_telefono.place(bordermode='outside', height=20, width=300, x=50, y=105)
+        lbl_email = tkinter.Label(pacientes, font='Arial', text="Email")
+        lbl_email.place(bordermode='outside', height=20, width=300, x=50, y=130)
+        lbl_fecha_nacimiento = tkinter.Label(pacientes, font='Arial', text="Fecha de Nacimiento")
+        lbl_fecha_nacimiento.place(bordermode='outside', height=20, width=300, x=50, y=155)
+
+        # Campos de Texto
+        nombre = tkinter.Entry(pacientes, font='times')
+        nombre.place(bordermode='outside', height=20, width=300, x=350, y=30)
+        apellido = tkinter.Entry(pacientes, font='times')
+        apellido.place(bordermode='outside', height=20, width=300, x=350, y=55)
+
+        documento_identidad_result = tkinter.Label(pacientes, font='Arial', text=cedula)
+        documento_identidad_result.place(bordermode='outside', height=20, width=300, x=350, y=80)
+        #documento_identidad = tkinter.Entry(pacientes, font='times')
+        #documento_identidad.place(bordermode='outside', height=20, width=300, x=350, y=80)
+
+        telefono = tkinter.Entry(pacientes, font='times')
+        telefono.place(bordermode='outside', height=20, width=300, x=350, y=105)
+        email = tkinter.Entry(pacientes, font='times')
+        email.place(bordermode='outside', height=20, width=300, x=350, y=130)
+        fecha_nacimiento = tkinter.Entry(pacientes, font='times')
+        fecha_nacimiento.place(bordermode='outside', height=20, width=300, x=350, y=155)
+
+
+        cargar = tkinter.Button(pacientes, text="Cargar", command=cargar)
+        cargar.place(bordermode='outside', height=40, width=100, x=240, y=210)
+        volver = tkinter.Button(pacientes, text="Volver", command=volver)
+        volver.place(bordermode='outside', height=40, width=100, x=340, y=210)
+        pacientes.mainloop()
+
 
 
 

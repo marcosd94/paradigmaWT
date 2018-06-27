@@ -1,7 +1,7 @@
 
 
 class TurnoModel:
-    disponibilidad = 5
+    disponibilidad = 10
 
 
     def __init__(self):

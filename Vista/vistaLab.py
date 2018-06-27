@@ -43,10 +43,6 @@ class VistaLab:
         def salir():
             ventana.destroy()
 
-        def cerrar():
-            ventana.destroy()
-            login.inicio()
-
         def CurSelet(evt):
             value = str(mylistbox.get(mylistbox.curselection()))
             if (value == 'Agregar'):
@@ -62,7 +58,7 @@ class VistaLab:
                 self.buscar_vista()
                 #view_funcionarios.eliminar_funcionario(usu)
             elif (value == 'Atender'):
-                ventana.destroy()
+                #ventana.destroy()
                 self.atender_vista()
                 #view_articulos.cargar_articulos(usu)
             elif (value == 'Salir'):
@@ -74,7 +70,7 @@ class VistaLab:
 
             ventana = tkinter.Tk()
             ventana.title("GOLAB Laboratorio de Analisis Clinicos")
-            ventana.geometry("500x500")
+            ventana.geometry("700x700")
             L1 = tkinter.Label(ventana, font='Arial', text="POR FAVOR ELIJA LA TAREA A REALIZAR")
             L1.place(bordermode='outside', height=50, x=100, y=10)
 
@@ -143,7 +139,7 @@ class VistaLab:
 
         agregar = tkinter.Tk()
         agregar.title("Agregar")
-        agregar.geometry("500x500")
+        agregar.geometry("700x700")
         L1 = tkinter.Label(agregar, font='Arial', text="ELIJA EL ITEM PARA AGREGAR")
         L1.place(bordermode='outside', height=50, x=100, y=10)
 
@@ -152,7 +148,7 @@ class VistaLab:
                            'Paciente',
                            'Orden de Analisis']
 
-        mylistbox = tkinter.Listbox(agregar, height=12, font=('times', 13))
+        mylistbox = tkinter.Listbox(agregar, height=12, width=50, font=('times', 13))
         mylistbox.bind('<<ListboxSelect>>', CurSelet)
         mylistbox.place(x=45, y=110)
 
@@ -194,9 +190,13 @@ class VistaLab:
                 #listar.destroy()
                 self.paciente_view.listar_pacientes()
                 #view_funcionarios.eliminar_funcionario(usu)
-            elif (value == 'Orden de Analisis'):
-                listar.destroy()
-                self.orden_view.listar_ordenes()
+            elif (value == 'Orden de Analisis Pendientes'):
+                #listar.destroy()
+                self.orden_view.listar_ordenes_pendientes()
+                #view_articulos.cargar_articulos(usu)
+            elif (value == 'Orden de Analisis Finalizados'):
+                #listar.destroy()
+                self.orden_view.listar_ordenes_finalizadas()
                 #view_articulos.cargar_articulos(usu)
             elif (value == 'Volver'):
                 listar.destroy()
@@ -206,16 +206,17 @@ class VistaLab:
 
         listar = tkinter.Tk()
         listar.title("Listar")
-        listar.geometry("500x500")
+        listar.geometry("700x700")
         L1 = tkinter.Label(listar, font='Arial', text="ELIJA EL ITEM A LISTAR")
         L1.place(bordermode='outside', height=50, x=100, y=10)
 
         itemsforlistbox = ['Funcionario',
                            'Medico',
                            'Paciente',
-                           'Orden de Analisis']
+                           'Orden de Analisis Pendientes',
+                           'Orden de Analisis Finalizados']
 
-        mylistbox = tkinter.Listbox(listar, height=12, font=('times', 13))
+        mylistbox = tkinter.Listbox(listar, height=12, width=50, font=('times', 13))
         mylistbox.bind('<<ListboxSelect>>', CurSelet)
         mylistbox.place(x=45, y=110)
 
@@ -257,8 +258,8 @@ class VistaLab:
                 self.paciente_view.buscar_paciente()
                 #view_funcionarios.eliminar_funcionario(usu)
             elif (value == 'Orden de Analisis'):
-                buscar.destroy()
-                self.con.buscar_orden()
+                #buscar.destroy()
+                self.orden_view.buscar_orden()
                 #view_articulos.cargar_articulos(usu)
             elif (value == 'Volver'):
                 buscar.destroy()
@@ -268,7 +269,7 @@ class VistaLab:
 
         buscar = tkinter.Tk()
         buscar.title("Buscar")
-        buscar.geometry("500x500")
+        buscar.geometry("700x700")
         L1 = tkinter.Label(buscar, font='Arial', text="ELIJA EL ITEM A BUSCAR")
         L1.place(bordermode='outside', height=50, x=100, y=10)
 
@@ -277,7 +278,7 @@ class VistaLab:
                            'Paciente',
                            'Orden de Analisis']
 
-        mylistbox = tkinter.Listbox(buscar, height=12, font=('times', 13))
+        mylistbox = tkinter.Listbox(buscar, height=12, width=50, font=('times', 13))
         mylistbox.bind('<<ListboxSelect>>', CurSelet)
         mylistbox.place(x=45, y=110)
 
@@ -292,21 +293,5 @@ class VistaLab:
         buscar.mainloop()
 
     def atender_vista(self):
-        valor = ''
-        loop = True
-        while(loop):
-            print('\t\t*** Atencion Ordenes ***')
-            print('1- Cargar Resultados')
-            print('2- Volver')
-            valor = self.util.verificar_espacios(input(self.promtp)).strip(',.-_')
-            try:
-                if(valor == '1' or valor == 'Cargar' or valor == 'cargar'):
-                    self.con.atender_orden()
-                elif(valor == '2' or valor == 'Volver' or valor == 'volver'):
-                    loop = False
-                elif(valor == ''):
-                    continue
-                else:
-                    print('El comando ingresado no es Valido')
-            except Exception as e:
-                print('Ocurrio un error con el servicio solicitado\n',e)
+        self.orden_view.atender_orden()
+
