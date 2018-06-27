@@ -120,6 +120,12 @@ class OrdenPaciente:
         codigo = codigo.upper()
         return (codigo)
 
+    def listar_ordeness(self, lista):
+        if lista!=None and len(lista)!=0:
+            print('\n-> Ordenes de Analisis Pendientes : \n')
+            for ord in lista:
+                print ('* Cod. Orden: ', ord.cod_orden, ', Cod. Paciente: ', ord.codigo_paciente, ', Estado: ',ord.estado, ', Fecha: ',ord.fecha,', Tipo: ',ord.tipo,)
+            self.util.pause()
     def listar_ordenes(self):
         def cerrar_exp():
             ordenes.destroy()
@@ -151,6 +157,15 @@ class OrdenPaciente:
             ok = tkinter.Button(alerta, text="Ok", command=cerrar_exp)
             ok.pack(side="bottom")
 
+    def listar_ordeness_finalizadas(self, lista):
+        if lista!=None and len(lista)!=0:
+            print('\n-> Ordenes de Analisis Finalizadas : \n')
+            for ord in lista:
+                print ('* Cod. Orden: ', ord.cod_orden, ', Cod. Paciente: ', ord.codigo_paciente, ', Estado: ',ord.estado, ', Fecha: ',ord.fecha,', Tipo: ',ord.tipo,)
+            self.util.pause()
+        else:
+            print('\n-> No existen registros')
+            self.util.pause()
 
     def mostrar_resultado(self,dato):
         if dato != None and len(dato)>0:

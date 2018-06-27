@@ -2,7 +2,7 @@ import datetime as fecha
 from Modelo.turno_model import TurnoModel
 
 class TurnoController():
-    turnos = {'T1': ['06:00:00', '13:00:00'], 'T2': ['13:00:00', '23:00:00']}
+    turnos = {'T1': ['06:00:00', '13:00:00'], 'T2': ['13:00:00', '23:59:00']}
     def __init__(self,orden=''):
         self.orden = orden
         self.hora_actual = None

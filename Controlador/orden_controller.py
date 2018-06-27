@@ -75,9 +75,16 @@ class OrdenController:
         except Exception as e:
             raise ('Error Fatal', e)
 
+    def listar_orden_pendiente(self):
+        ob = self.model.listar_ordenes()
+        self.orden.listar_ordeness(ob)
     def listar_orden(self):
         return self.model.listar_ordenes()
         #self.orden.listar_ordeness(ob)
+
+    def listar_orden_finalizada(self):
+        ob = self.model.listar_ordenes_finalizadas()
+        self.orden.listar_ordeness_finalizadas(ob)
 
     def buscar_orden(self):
         codigo = self.orden.solicitar_codigo()
@@ -86,4 +93,13 @@ class OrdenController:
 
     def atender_orden(self):
         codigo = self.orden.solicitar_codigo()
-        orden = self.model.buscar_orden(codigo)
+        orden = self.model.buscar_orden_modif(codigo)
+        if (orden == None):
+            msg  = 'No se encuentra la orden de trabajo solicitada'
+            self.orden.mostrar_msg2(msg)
+        else:
+            orden.estado = 'Finalizado'
+            orden.fecha = date.today().strftime('%d/%b/%Y')
+            self.model.cargar_orden(orden,orden.cod_orden)
+            msg = 'Orden concluida'
+            self.orden.mostrar_msg2(msg)
