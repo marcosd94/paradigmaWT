@@ -166,7 +166,7 @@ class OrdenPaciente:
 
         mylistbox = tkinter.Listbox(ordenes, height=12, width=100, font=('times', 13))
         mylistbox.place(x=32, y=110)
-        orden = self.controller.listar_orden_pendiente()
+        orden = self.controller.orden_list('pen')
         if orden != None and len(orden) != 0:
             for values in orden:
                 mylistbox.insert('end', '* Cod. Orden: ' + str(values.cod_orden) +', Cod. Paciente: ' + str(values.codigo_paciente) + ', Estado: ' + str(values.estado) +  ', Fecha: ' + str(values.fecha) + ', Tipo: ' + str(values.tipo) )
@@ -197,7 +197,7 @@ class OrdenPaciente:
 
         mylistbox = tkinter.Listbox(ordenes, height=12, width=100, font=('times', 13))
         mylistbox.place(x=32, y=110)
-        orden = self.controller.listar_orden_finalizada()
+        orden = self.controller.orden_list('fin')
         if orden != None and len(orden) != 0:
             for values in orden:
                 mylistbox.insert('end', '* Cod. Orden: ' + str(values.cod_orden) +', Cod. Paciente: ' + str(values.codigo_paciente) + ', Estado: ' + str(values.estado) +  ', Fecha: ' + str(values.fecha) + ', Tipo: ' + str(values.tipo) )
@@ -382,7 +382,7 @@ class OrdenPaciente:
         # lbl_orden.place(bordermode='outside', height=20, width=300, x=50, y=155)
 
         # Campos de Texto
-        lista_pedidos_pendientes = self.controller.listar_orden_pendiente()
+        lista_pedidos_pendientes = self.controller.orden_list('pen')
 
         if lista_pedidos_pendientes != None and len(lista_pedidos_pendientes) != 0:
 
