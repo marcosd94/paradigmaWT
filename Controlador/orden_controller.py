@@ -1,4 +1,4 @@
-from Vista.orden_view import OrdenPaciente
+#from Vista.orden_view import OrdenPaciente
 from Modelo.paciente_model import Paciente
 from Modelo.orden_model import OrdenModel
 from Controlador.paciente_controller import ControladorPaciente
@@ -9,7 +9,7 @@ class OrdenController:
 
 
     def __init__(self):
-        self.orden = OrdenPaciente()
+        #self.orden = OrdenPaciente()
         self.pac  = Paciente()
         self.model = OrdenModel()
         self.cpac = ControladorPaciente()
@@ -31,6 +31,7 @@ class OrdenController:
         access = self.verificador_cupos()
         loop = True
         try:
+
             if(access):
                 while(loop):
                     cedula = self.orden.solicitar_datos()
@@ -72,11 +73,11 @@ class OrdenController:
                 self.orden.mostrar_msg2(msg)
 
         except Exception as e:
-            raise ('Error Fatal',e)
+            raise ('Error Fatal', e)
 
     def listar_orden(self):
-        ob = self.model.listar_ordenes()
-        self.orden.listar_ordeness(ob)
+        return self.model.listar_ordenes()
+        #self.orden.listar_ordeness(ob)
 
     def buscar_orden(self):
         codigo = self.orden.solicitar_codigo()

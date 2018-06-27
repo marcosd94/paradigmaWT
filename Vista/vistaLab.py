@@ -5,6 +5,9 @@ from Controlador.medico_controller import  ControladorMedico
 from Controlador.orden_controller import OrdenController
 from Controlador.jornada_controller import JornadaController
 from Vista.funcionario_view import View as FuncionarioView
+from Vista.medico_view import View as MedicoView
+from Vista.paciente_view import View as PacienteView
+from Vista.orden_view import OrdenPaciente
 import tkinter
 class VistaLab:
     def __init__(self):
@@ -16,7 +19,9 @@ class VistaLab:
         self.jornada = JornadaController()
         self.promtp = '~golab >>> '
         self.funcionario_view = FuncionarioView()
-
+        self.medico_view = MedicoView()
+        self.paciente_view = PacienteView()
+        self.orden_view = OrdenPaciente()
 
 
     def main_loop(self):
@@ -76,8 +81,7 @@ class VistaLab:
             itemsforlistbox = ['Agregar',
                                'Listar',
                                'Buscar',
-                               'Atender',
-                               'Salir']
+                               'Atender']
 
 
             mylistbox = tkinter.Listbox(ventana, height=12, font=('times', 13))
@@ -114,21 +118,22 @@ class VistaLab:
         def CurSelet(evt):
             value = str(mylistbox.get(mylistbox.curselection()))
             if (value == 'Funcionario'):
-                agregar.destroy()
+                #agregar.destroy()
                 self.funcionario_view.cargar_funcionario()
                 #self.x.mostrar_formulario_funcionario()
                 #view_funcionarios.cargar_funcionario(usu)
             elif (value == 'Medico'):
-                agregar.destroy()
-                self.m.cargar_medico()
+                #agregar.destroy()
+                self.medico_view.cargar_medico()
                 #view_funcionarios.listar_funcionarios(usu)
             elif (value == 'Paciente'):
-                agregar.destroy()
-                self.p.cargar_paciente()
+                #agregar.destroy()
+                self.paciente_view.cargar_paciente()
                 #view_funcionarios.eliminar_funcionario(usu)
             elif (value == 'Orden de Analisis'):
-                agregar.destroy()
-                self.con.cargar_orden()
+                #agregar.destroy()
+                self.orden_view.registrar_orden()
+                #self.con.cargar_orden()
                 #view_articulos.cargar_articulos(usu)
             elif (value == 'Volver'):
                 agregar.destroy()
@@ -145,8 +150,7 @@ class VistaLab:
         itemsforlistbox = ['Funcionario',
                            'Medico',
                            'Paciente',
-                           'Orden de Analisis',
-                           'Volver']
+                           'Orden de Analisis']
 
         mylistbox = tkinter.Listbox(agregar, height=12, font=('times', 13))
         mylistbox.bind('<<ListboxSelect>>', CurSelet)
@@ -179,20 +183,20 @@ class VistaLab:
         def CurSelet(evt):
             value = str(mylistbox.get(mylistbox.curselection()))
             if (value == 'Funcionario'):
-                listar.destroy()
+                #listar.destroy()
                 self.funcionario_view.listar_funcionarios()
                 #view_funcionarios.cargar_funcionario(usu)
             elif (value == 'Medico'):
-                listar.destroy()
-                self.m.listar_medico()
+                #listar.destroy()
+                self.medico_view.listar_medicos()
                 #view_funcionarios.listar_funcionarios(usu)
             elif (value == 'Paciente'):
-                listar.destroy()
-                self.p.listar_paciente()
+                #listar.destroy()
+                self.paciente_view.listar_pacientes()
                 #view_funcionarios.eliminar_funcionario(usu)
             elif (value == 'Orden de Analisis'):
                 listar.destroy()
-                self.con.listar_orden()
+                self.orden_view.listar_ordenes()
                 #view_articulos.cargar_articulos(usu)
             elif (value == 'Volver'):
                 listar.destroy()
@@ -203,14 +207,13 @@ class VistaLab:
         listar = tkinter.Tk()
         listar.title("Listar")
         listar.geometry("500x500")
-        L1 = tkinter.Label(listar, font='Arial', text="ELIJA EL ITEM PARA AGREGAR")
+        L1 = tkinter.Label(listar, font='Arial', text="ELIJA EL ITEM A LISTAR")
         L1.place(bordermode='outside', height=50, x=100, y=10)
 
         itemsforlistbox = ['Funcionario',
                            'Medico',
                            'Paciente',
-                           'Orden de Analisis',
-                           'Volver']
+                           'Orden de Analisis']
 
         mylistbox = tkinter.Listbox(listar, height=12, font=('times', 13))
         mylistbox.bind('<<ListboxSelect>>', CurSelet)
@@ -241,16 +244,17 @@ class VistaLab:
         def CurSelet(evt):
             value = str(mylistbox.get(mylistbox.curselection()))
             if (value == 'Funcionario'):
-                buscar.destroy()
+                #buscar.destroy()
                 self.funcionario_view.solicitar_codigo()
                 #view_funcionarios.cargar_funcionario(usu)
             elif (value == 'Medico'):
-                buscar.destroy()
-                self.m.buscar_medico()
+                #buscar.destroy()
+                self.medico_view.buscar_medico()
+                #self.m.buscar_medico()
                 #view_funcionarios.buscar_funcionarios(usu)
             elif (value == 'Paciente'):
-                buscar.destroy()
-                self.p.buscar_paciente()
+                #buscar.destroy()
+                self.paciente_view.buscar_paciente()
                 #view_funcionarios.eliminar_funcionario(usu)
             elif (value == 'Orden de Analisis'):
                 buscar.destroy()
@@ -263,16 +267,15 @@ class VistaLab:
                 #view_articulos.cargar_articulos(usu)
 
         buscar = tkinter.Tk()
-        buscar.title("Listar")
+        buscar.title("Buscar")
         buscar.geometry("500x500")
-        L1 = tkinter.Label(buscar, font='Arial', text="ELIJA EL ITEM PARA AGREGAR")
+        L1 = tkinter.Label(buscar, font='Arial', text="ELIJA EL ITEM A BUSCAR")
         L1.place(bordermode='outside', height=50, x=100, y=10)
 
         itemsforlistbox = ['Funcionario',
                            'Medico',
                            'Paciente',
-                           'Orden de Analisis',
-                           'Volver']
+                           'Orden de Analisis']
 
         mylistbox = tkinter.Listbox(buscar, height=12, font=('times', 13))
         mylistbox.bind('<<ListboxSelect>>', CurSelet)

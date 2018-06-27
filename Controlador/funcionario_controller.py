@@ -21,7 +21,7 @@ class ControladorFuncionario():
             codigo = self.util.genera_codigo(self.fun.nombre, self.fun.apellido, self.fun.cedula)
             existe = self.fun.buscar_persona(codigo)
             if existe != None and len(existe) != 0:
-                msg = 'El funcionario {} ya existe en la base'.format(codigo)
+                raise Exception('El funcionario {} ya existe en la base'.format(codigo))
                 self.view.mostrar_msg(msg)
             else:
                 self.fun.carga_datos(codigo)
@@ -36,7 +36,7 @@ class ControladorFuncionario():
         return self.fun.listar_persona()
         #self.view.listar_funcionarios(ob)
 
-    def buscar_funcionarios(self):
-        codigo = self.view.solicitar_codigo()
+    def buscar_funcionarios(self,codigo ):
+        #codigo = self.view.solicitar_codigo()
         return self.fun.buscar_persona(codigo)
         #self.view.mostrar_resultado(funcionario)
